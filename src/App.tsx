@@ -6,6 +6,6 @@ const App: React.FC = () => {
       <h1>Welcome to React and Snowpack</h1>
     </div>
   );
-}
+};
 
 export default App;
