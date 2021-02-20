@@ -10,7 +10,8 @@ import {
   NumberIncrementStepper,
   NumberInput,
   NumberInputField,
-  NumberInputStepper
+  NumberInputStepper,
+  useToast
 } from '@chakra-ui/react';
 
 type FieldName = 'name' | 'amount';
@@ -28,12 +29,17 @@ const Form = (): JSX.Element => {
   const { handleSubmit, errors, register, formState } = useForm<FormValues>({
     defaultValues
   });
+  const toast = useToast();
 
   const validateRequired = (value: FieldValue) =>
     value ? Boolean(value) : 'Field is required';
 
   const submitHandler = (values: FormValues) => {
-    console.log('submitted!');
+    toast({
+      title: 'Form submitted!',
+      status: 'success',
+      duration: 3000
+    });
     console.table(values);
   };
 
