@@ -5,15 +5,23 @@ import {
   FormLabel,
   FormControl,
   Input,
-  Button
+  Button,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper
 } from '@chakra-ui/react';
 
-type FormValues = {
-  name: string;
-};
+type FieldName = 'name' | 'amount';
+
+type FieldValue = string | number;
+
+type FormValues = Record<FieldName, FieldValue>;
 
 const defaultValues = {
-  name: ''
+  name: '',
+  amount: 0
 };
 
 const Form = (): JSX.Element => {
@@ -21,8 +29,8 @@ const Form = (): JSX.Element => {
     defaultValues
   });
 
-  const validateName = (value: string) =>
-    value ? Boolean(value) : 'Name is required';
+  const validateRequired = (value: FieldValue) =>
+    value ? Boolean(value) : 'Field is required';
 
   const submitHandler = (values: FormValues) => {
     console.log('submitted!');
@@ -36,10 +44,24 @@ const Form = (): JSX.Element => {
         <Input
           name="name"
           placeholder="name"
-          ref={register({ validate: validateName })}
+          ref={register({ validate: validateRequired })}
         />
         <FormErrorMessage>
           {errors.name && errors.name.message}
+        </FormErrorMessage>
+        <FormLabel htmlFor="amount">Amount</FormLabel>
+        <NumberInput>
+          <NumberInputField
+            name="amount"
+            ref={register({ validate: validateRequired })}
+          />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+        <FormErrorMessage>
+          {errors.amount && errors.amount.message}
         </FormErrorMessage>
       </FormControl>
       <Button mt={4} isLoading={formState.isSubmitting} type="submit">
