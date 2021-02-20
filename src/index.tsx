@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Layout from './components/Layout';
 
 const config = {
   initialColorMode: 'light',
@@ -19,7 +20,9 @@ ReactDOM.render(
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <React.StrictMode>
       <ChakraProvider theme={theme}>
-        <App />
+        <Layout>
+          <App />
+        </Layout>
       </ChakraProvider>
     </React.StrictMode>
   </>,
